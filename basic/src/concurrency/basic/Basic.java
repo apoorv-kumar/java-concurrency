@@ -17,6 +17,9 @@ class TestDoubleCounter{
     // This can be used to see how inadvertent
     // internal locking can slow things down.
     // EDIT: Results show no such thing.
+    // Compiler probably optimized the hell out of this.
+    // EDIT: Indeed. z is not used. So the compiler just
+    // removed it and put a boolean assignment in loop.
     synchronized void dummy_slow_routine_internal_lock(){
         for(int i = 0; i < 1000000; i++){
             int z = 1000%7;
@@ -99,21 +102,21 @@ class AsycDoubleCounterTester extends Thread{
     public void run(){
 
         switch (execType){
-            case INCREMENT_EXPLICIT_LOCK: loopLambda(()->dc.increment_explicit_lock());
+            case INCREMENT_EXPLICIT_LOCK: loopLambda(dc::increment_explicit_lock);
             break;
-            case DECREMENT_EXPLICIT_LOCK: loopLambda(()->dc.decrement_explicit_lock());
+            case DECREMENT_EXPLICIT_LOCK: loopLambda(dc::decrement_explicit_lock);
             break;
-            case INCREMENT_INTERNAL_LOCK: loopLambda(()->dc.increment_internal_lock());
+            case INCREMENT_INTERNAL_LOCK: loopLambda(dc::increment_internal_lock);
             break;
-            case DECREMENT_INTERNAL_LOCK: loopLambda(()->dc.decrement_internal_lock());
+            case DECREMENT_INTERNAL_LOCK: loopLambda(dc::decrement_internal_lock);
             break;
-            case INVARIANT_INTERNAL_LOCK: loopLambda(()->dc.invariant_check_internal_lock());
+            case INVARIANT_INTERNAL_LOCK: loopLambda(dc::invariant_check_internal_lock);
             break;
-            case INVARIANT_EXPLICIT_LOCK: loopLambda(()->dc.invariant_check_explicit_lock());
+            case INVARIANT_EXPLICIT_LOCK: loopLambda(dc::invariant_check_explicit_lock);
             break;
-            case SLOW_ROUTINE_INTERNAL_LOCK: loopLambda(()->dc.dummy_slow_routine_internal_lock());
+            case SLOW_ROUTINE_INTERNAL_LOCK: loopLambda(dc::dummy_slow_routine_internal_lock);
             break;
-            case SLOW_ROUTINE_LOCK_FREE: loopLambda(()->dc.dummy_slow_routine_lock_free());
+            case SLOW_ROUTINE_LOCK_FREE: loopLambda(dc::dummy_slow_routine_lock_free);
             break;
         }
 
