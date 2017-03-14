@@ -30,6 +30,7 @@ public class ImmutableState {
         
         public void run(){
             try {
+                //spin loop. Not good. See WaitNotify.
                 while(true){
                     if(globalBuffer != null){
                         System.out.printf("Consumed by %s :  %d/%d\n", name, globalBuffer.a1, globalBuffer.a2);
@@ -95,6 +96,7 @@ public class ImmutableState {
         }
 
         System.out.println("killing consumer");
+        //Killing thread - not good. See TestInterruption/WaitNotify
         t_consumer.stop();
 
         try{
