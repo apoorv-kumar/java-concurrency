@@ -10,7 +10,7 @@ public class SampleStringConsumer implements StringConsumer{
         try{
             Random r = new Random();
             int wait = r.nextInt(2*avgDelay);
-            Thread.sleep(wait);
+            if(wait != 0) Thread.sleep(wait);
             System.out.println("consumer in " + name + " consumed data: " + data);
         } catch (InterruptedException e){
             System.out.println("consumer in " + name + " interrupted.");
