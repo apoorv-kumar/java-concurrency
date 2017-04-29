@@ -31,8 +31,7 @@ public class Preloader {
     public static void main(String[] args) {
         //Pre-load
         FutureTask<Integer> ft = new FutureTask<Integer>(new PreloadableTask());
-        Thread t = new Thread(ft);
-        t.start();
+        ft.run();
 
         long startTime = System.nanoTime();
         SlowInitClass slowObj = new SlowInitClass();
