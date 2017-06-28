@@ -11,13 +11,7 @@ public class ExecutorCompService {
     public static void main(String[] args) {
         //create tasks
         for (int i = 0; i < N_THREADS; i++) {
-            Callable<String> c = new Callable<String>() {
-                public String call() throws Exception {
-                    Random r = new Random();
-                    Thread.sleep(r.nextInt(5000));
-                    return "Produced by " + Thread.currentThread().getName();
-                }
-            };
+            Callable<String> c = new StringProducerTask();
             execCompSrv.submit(c);
         }
 
