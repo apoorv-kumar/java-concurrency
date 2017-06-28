@@ -20,6 +20,7 @@ public class TimedExecutorPool {
 
         try {
             List<Future<String>> resultFutures = execSrv.invokeAll(taskList, 2000, TimeUnit.MILLISECONDS);
+            execSrv.shutdown();
             for(Future<String> f : resultFutures){
                 try {
                     String result = f.get();
@@ -35,5 +36,6 @@ public class TimedExecutorPool {
         }
 
         System.out.println(cancelledFutures.toString() + " futures were cancelled (most likely timeout)");
+
     }
 }

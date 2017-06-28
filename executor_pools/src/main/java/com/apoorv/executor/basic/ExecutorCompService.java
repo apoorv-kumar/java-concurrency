@@ -14,6 +14,7 @@ public class ExecutorCompService {
             Callable<String> c = new StringProducerTask();
             execCompSrv.submit(c);
         }
+        execSrv.shutdown();
 
         //wait for results
         //we need to remember the number of futures to expect
