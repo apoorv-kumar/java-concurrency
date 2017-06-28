@@ -1,4 +1,4 @@
-package com.apoorv.future.exercise;
+package com.apoorv.futures.exercise;
 
 import java.util.concurrent.*;
 
